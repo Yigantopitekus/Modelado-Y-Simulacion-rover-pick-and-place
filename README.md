@@ -53,12 +53,14 @@ En el ultimo plano, no se fijan mas goals de poses, por lo que el gasto no aumen
 ## Imagenes de la Simulacion
 ### TFs
  <img width="944" height="717" alt="image" src="https://github.com/user-attachments/assets/4c54b40c-c97b-423f-90a0-f5a0af3e45c1" />
+ 
 ### Interfaz joint_state_publisher_gui
 <img width="1075" height="773" alt="image" src="https://github.com/user-attachments/assets/ac8a761f-37f3-48ca-ae07-d3f9b9d7c401" />
 
 ### Rover sujetando el cubo verde
 <img width="267" height="204" alt="image" src="https://github.com/user-attachments/assets/1f82f6d0-f2ac-47cf-b759-85b23a53ddab" />
 <img width="275" height="209" alt="image" src="https://github.com/user-attachments/assets/62294e80-9d3d-46fd-bc9c-c4bca8ee235b" />
+
 ### Cubo azul antes de colocarlo sobre el rojo
 <img width="380" height="487" alt="image" src="https://github.com/user-attachments/assets/7ce39165-0dba-4f87-91f8-0530cd212669" />
 
