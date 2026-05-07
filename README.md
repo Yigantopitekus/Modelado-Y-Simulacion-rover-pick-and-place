@@ -1,6 +1,14 @@
 # Modelado-Y-Simulacion-rover-pick-and-place
-This repository holds an university assigment where it is asked to develop a gazebo simulation parting from a blender model from a previous assigment.
+En este repositorio se presenta la practica 3 de la asignatura Modelado y Simulacion para robots, se desarrolla un modelo utilizable en gazebo partiendo de un modelo previamente generado usando blender+phobos, donde se genera un urdf que durante la practica se modula en diferentes xacros para una mayor flexibilidad. Ademas se usa el metapaquete de moveIt para gestionar el movimiento de el brazo incorporado en el robot con la finalidad de recoger cubos y depositarlos en el contenedor situado en la espalda del robot.
 
+Durante la tarea se ejecuta una simulacion siguiendo el siguiente procedimiento:
+ - Recoger el cubo verde
+ - Depositarlo en el contenedor
+ - Recoger el cubo Azul
+ - Depositarlo encima del cubo rojo
+ - Avanzar 10m con el robot
+
+De esta ejecucion se realiza un rosbag conteniendo los topics /cmd_vel /imu/data y /joint_states, de los que se generarian graficas que representan la evolucion con el tiempo. Ademas, se pueden encontrar algunas ilustraciones del desarrollo del trabajo.
 
 ## Plots
 <img width="1040" height="871" alt="image" src="https://github.com/user-attachments/assets/ca393577-8a8f-420e-95eb-8030f28e3005" />
