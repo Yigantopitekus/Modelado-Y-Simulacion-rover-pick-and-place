@@ -21,6 +21,10 @@ source install/setup.bash
 ## launch
 Lanzar el robot en gazebo
 ```ros2 launch msr_robot robot_gazebo.launch.py world_name:=urjc_excavation_msr```
+
+Lanzar la configuracion de los grupos de movimiento del robot con move it
+```ros2 launch rover_moveit_config move_group.launch.py 
+```
 ## Plots
 <img width="1040" height="871" alt="image" src="https://github.com/user-attachments/assets/ca393577-8a8f-420e-95eb-8030f28e3005" />
 
