@@ -5,6 +5,7 @@ This repository holds an university assigment where it is asked to develop a gaz
 ## Plots
 <img width="1040" height="871" alt="image" src="https://github.com/user-attachments/assets/ca393577-8a8f-420e-95eb-8030f28e3005" />
 ### Posicion Ruedas vs Tiempo
+
 **0-110s**:
 Esta primera fraccion de tiempo representa el proceso del pick and place, donde el robot se mantiene estatico mientras utiliza el brazo para recoger el cubo que se encuentra en el suelo. Por ello las ruedas no cambian de posicion.
 **110-225**
@@ -15,6 +16,7 @@ En este segmento, una vez recogido el cubo azul, se realizan multiples maniobras
 En el ultimo segmento subimos la velocidad maxima del teleop para hacer que el rover se mueva hacia adelante a mayor velocidad, la razon por la que un lado sube y otro baja es porque las TF de el lado izquierdo, apuntan su  hacia adelante, y las del lado derecho hacia atras.
 
 ### Aceleracion vs Tiempo
+
 Primeramente hay que notar que la aceleracion del eje z empieza en +9.8 debido a la gravedad
 **0-110s**:
 Esta primera fraccion de tiempo representa el proceso del pick and place, donde el robot se mantiene estatico mientras utiliza el brazo para recoger el cubo que se encuentra en el suelo.Por ello el Imu que se encuentra en la base del robot se mantiene constante salvo algo de ruio producido por el movimiento.
@@ -26,6 +28,16 @@ En este segmento de tiempo, se recoge el cubo azul, y una vez se sube el cubo ar
 En este ultimo segmento se registran un valor de vibraciones en el imu debido a la velocidad que se toma en el avance de los 10 metros. Aunque el color de esta parte de la grafica predomina el verde (Z) el valor de X deberia ser muy alto ya que el robot esta avanzando a lo largo de su eje x, generando mayor aceleracion en el eje x, que en el eje y, lamentablemente se solapa al representarlo. La aceleracion del eje Z es provocada por los baches en el terreno
 
 ### Gasto Energetico vs Tiempo
+
 EL modelo de mi robot tiene la posicion de reposo de la pinza a ras de suelo por ende no se visualiza un gasto para acercar la pinza al cubo.
 **15-50**
+En este primer segmento ocurre el agarre del cubo, su elvacion, desplazamiento al lobby y finalmente encima del contenedor.EL gasto se ve tan elevado ya que para mantener el cubo en el gripper el effort de cada finguer del gripper ha de ser muy elevado (400).
+**50-80**
+Al comienzo del segmento se suelta el cubo, y como se refleja el gasto baja drasticamente, el resto del segmento es la recolocacion del brazo a su posicion inicial ( el gasto vuelve a elevarse porque cerré el gripper por error pero al llegar al comienzo me doy cuenta y lo abro de nuevo).
+**80-225**
+En este tramo, no se realiza ningun movimiento en el brazo, por lo que lo unico que se puede ver es algo de ruido que se genera al mover el robot con teleop, que hace que se desplacen brevemente las artiulaciones, y estas se recolocan al desplazarse
+**225-280**
+En este segmento representa la recogida del cubo azul, el tramo comienza con una pequeña elevacion en la grafica, correspondiente no a la bajada del gripper, si no a la subida del cubo despues de agarrarlo, notese por la cantidad del gasto energetico, ya que al ser tan alto significa que el gripper esta cerrado, y como se ha explicado antes ocupa 400 de effor por dedo. En el resto del segmento, el cubo se mantiene en alto mientras se gira el rover usando teleop, habiendo algunas vibraciones en el gasto por la misma razon mencionada en el segmento anterior.Al soltarse el cubo azul, el gasto baja notablemente.
+**280-end**
+En el ultimo plano, no se fijan mas goals de poses, por lo que el gasto no aumenta notablemente, sin embargo al mover el robot en linea recta se generan vibraciones que mueven momentaneamente las articulaciones,y estas se recolocan a la posicion a la que estaban.
 
