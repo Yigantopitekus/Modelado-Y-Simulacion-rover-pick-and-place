@@ -9,6 +9,7 @@ Durante la tarea se ejecuta una simulacion siguiendo el siguiente procedimiento:
  - Avanzar 10m con el robot
 
 De esta ejecucion se realiza un rosbag conteniendo los topics /cmd_vel /imu/data y /joint_states, de los que se generarian graficas que representan la evolucion con el tiempo. Ademas, se pueden encontrar algunas ilustraciones del desarrollo del trabajo.
+## Build
 
 ## Plots
 <img width="1040" height="871" alt="image" src="https://github.com/user-attachments/assets/ca393577-8a8f-420e-95eb-8030f28e3005" />
