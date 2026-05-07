@@ -4,6 +4,7 @@ This repository holds an university assigment where it is asked to develop a gaz
 
 ## Plots
 <img width="1040" height="871" alt="image" src="https://github.com/user-attachments/assets/ca393577-8a8f-420e-95eb-8030f28e3005" />
+
 ### Posicion Ruedas vs Tiempo
 
 **0-110s**:
