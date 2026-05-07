@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+<robot name="robot" xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:property name="PI" value="3.141592653589793"/>
+
+  <xacro:macro name="scara" params="parent *origin">
+
+    <!-- ===================== -->
+    <!--        JOINTS         -->
+    <!-- ===================== -->
+
+    <joint name="arm1_joint" type="revolute">
+      <xacro:insert_block name="origin"/>
+      <parent link="${parent}"/>
+      <child link="arm1_link"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="-6.2832" upper="6.2832" effort="50" velocity="2.0"/>
+    </joint>
+
+    <joint name="arm2_joint" type="revolute">
+      <origin xyz="0 -1.37934 0.17516" rpy="0 0 0"/>
+      <parent link="arm1_link"/>
+      <child link="arm2_link"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="-2.62" upper="2.62" effort="50" velocity="2.0"/>
+    </joint>
+
+    <!-- AFTER -->
+  <joint name="gripper_rod_joint" type="revolute">
+    <origin xyz="0 -1.20684 0.09373" rpy="0 0 0"/>
+    <parent link="arm2_link"/>
+    <child link="gripper_rod_link"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-6.2832" upper="6.2832" effort="50" velocity="2.0"/>
+  </joint>
+
+    <joint name="cylinder_joint" type="prismatic">
+      <origin xyz="0.01179 -0.01166 -1.39007" rpy="0 0 ${PI}"/>
+      <parent link="gripper_rod_link"/>
+      <child link="cylinder_link"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="0.0" upper="2.4" effort="100" velocity="0.5"/>
+    </joint>
+
+    <joint name="gripper_base_joint" type="fixed">
+      <origin xyz="0 0 -1.43956" rpy="0 0 0"/>
+      <parent link="cylinder_link"/>
+      <child link="gripper_base_link"/>
+    </joint>
+
+    <!-- ===================== -->
+    <!--     GRIPPER JOINTS    -->
+    <!-- ===================== -->
+
+    <joint name="left_finger_joint" type="prismatic">
+      <origin rpy="-0.00000 0 0.00000" xyz="-0.45000 0.00000 -0.45000"/>
+      <parent link="gripper_base_link"/>
+      <child link="left_finger_link"/>
+      <axis xyz="1 0 0"/>
+      <limit lower="0.0" upper="0.3" effort="400" velocity="0.2"/>
+    </joint>
+
+    <joint name="right_finger_joint" type="prismatic">
+      <origin rpy="0.00000 0 0.00000" xyz="0.45000 0.00000 -0.45000"/>
+      <parent link="gripper_base_link"/>
+      <child link="right_finger_link"/>
+      <axis xyz="-1 0 0"/>
+      <limit lower="0.0" upper="0.3" effort="400" velocity="0.2"/>
+    </joint>
+
+    <!-- ===================== -->
+    <!--         LINKS         -->
+    <!-- ===================== -->
+
+    <link name="arm1_link">
+      <collision name="arm1_collision">
+        <origin rpy="0.00000 0.00000 -0.00000" xyz="-0.00000 -0.66089 0.00000"/>
+        <geometry>
+          <mesh filename="package://msr_robot/meshes/dae/Cylinder.003.dae" scale="-0.19690 -0.91222 -0.00278"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="0.62861" ixy="0.00000" ixz="0.00000" iyy="0.03739" iyz="0.00000" izz="0.64900"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 -0.66089 0.08942"/>
+        <mass value="3.00000"/>
+      </inertial>
+      <visual name="arm1">
+        <material name="None"/>
+        <origin rpy="0.00000 0.00000 -0.00000" xyz="-0.00000 -0.66089 0.00000"/>
+        <geometry>
+          <mesh filename="package://msr_robot/meshes/dae/Cylinder.003.dae" scale="-0.19690 -0.91222 -0.00278"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="arm2_link">
+      <collision name="arm2_collision">
+        <origin rpy="0.00000 0.00000 -0.00000" xyz="-0.00000 -0.61400 0.00000"/>
+        <geometry>
+          <mesh filename="package://msr_robot/meshes/dae/Cylinder.006.dae" scale="-0.19690 -0.91222 -0.00278"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="0.62861" ixy="0.00000" ixz="0.00000" iyy="0.03739" iyz="0.00000" izz="0.64900"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 -0.61400 0.08942"/>
+        <mass value="3.00000"/>
+      </inertial>
+      <visual name="arm2">
+        <material name="None"/>
+        <origin rpy="0.00000 0.00000 -0.00000" xyz="-0.00000 -0.61400 0.00000"/>
+        <geometry>
+          <mesh filename="package://msr_robot/meshes/dae/Cylinder.006.dae" scale="-0.19690 -0.91222 -0.00278"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="gripper_rod_link">
+    <inertial>
+      <mass value="0.1"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0.001" ixy="0" ixz="0"
+              iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+
+    <link name="cylinder_link">
+      <visual>
+        <geometry>
+          <mesh filename="package://msr_robot/meshes/dae/Cylinder.016.dae" scale="0.06435 0.06435 1.45375"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="gripper_base_link">
+      <collision name="Gripper_base_collision.000">
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <geometry>
+          <mesh filename="package://msr_robot/meshes/dae/Cube.dae" scale="0.50000 0.25000 0.05000"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <inertia ixx="0.02167" ixy="0.00000" ixz="0.00000" iyy="0.08417" iyz="0.00000" izz="0.10417"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <mass value="1.00000"/>
+      </inertial>
+      <visual name="Gripper_base">
+        <material name="None"/>
+        <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+        <geometry>
+          <mesh filename="package://msr_robot/meshes/dae/Cube.dae" scale="0.50000 0.25000 0.05000"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="left_finger_link">
+    <collision name="left finger_collision">
+      <origin rpy="-3.14159 1.57 -3.14159" xyz="0 -0.00000 0.10"/>
+      <geometry>
+        <box size="0.55000 0.50000 0.10000"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <inertia ixx="0.04604" ixy="0.00000" ixz="0.00000" iyy="0.02604" iyz="0.00000" izz="0.02167"/>
+      <origin rpy="0.00000 1.57 0.00000" xyz="0.12500 -0.00000 0.00000"/>
+      <mass value="1.00000"/>
+    </inertial>
+    <visual name="left finger">
+      <material name="None"/>
+      <origin rpy="-3.14159 1.57 -3.14159" xyz="-0.00000 -0.00000 -0.00000"/>
+      <geometry>
+        <mesh filename="package://msr_robot/meshes/dae/Cube.012.dae" scale="0.40000 0.25000 0.05000"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="right_finger_link">
+    <collision name="right_finger_collision">
+      <origin rpy="0.00000 1.57 0.00000" xyz="0 -0.00000 0.1"/>
+      <geometry>
+        <box size="0.55000 0.50000 0.10000"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <inertia ixx="0.04604" ixy="0.00000" ixz="0.00000" iyy="0.02604" iyz="0.00000" izz="0.02167"/>
+      <origin rpy="0.00000 1.57 0.00000" xyz="-0.12500 -0.00000 -0.00000"/>
+      <mass value="1.00000"/>
+    </inertial>
+    <visual name="right_finger">
+      <material name="None"/>
+      <origin rpy="0.00000 1.57 -0.00000" xyz="0.00000 -0.00000 -0.00000"/>
+      <geometry>
+        <mesh filename="package://msr_robot/meshes/dae/Cube.011.dae" scale="0.40000 0.25000 0.05000"/>
+      </geometry>
+    </visual>
+  </link>
+  <gazebo reference="left_finger_link">
+    <mu1>10.0</mu1>
+    <mu2>10.0</mu2>
+    <kp>1e6</kp>   <!-- contact stiffness -->
+    <kd>100.0</kd> <!-- contact damping -->
+    <minDepth>0.001</minDepth>
+    <maxContacts>10</maxContacts>
+  </gazebo>
+
+  <gazebo reference="right_finger_link">
+    <mu1>10.0</mu1>
+    <mu2>10.0</mu2>
+    <kp>1e6</kp>
+    <kd>100.0</kd>
+    <minDepth>0.001</minDepth>
+    <maxContacts>10</maxContacts>
+  </gazebo>
+  </xacro:macro>
+
+</robot>

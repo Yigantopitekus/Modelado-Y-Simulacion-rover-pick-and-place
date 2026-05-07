@@ -1,0 +1,27 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: msr_robot
+    relative_path: robots/robot.urdf.xacro
+  srdf:
+    relative_path: config/robot.srdf
+  package_settings:
+    author_name: Roberto Donate Lario
+    author_email: r.donate.2023@alumnos.urjc.es
+    generated_timestamp: 1777395414
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
+      - effort
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
+      - effort

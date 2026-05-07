@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<robot name="camera" xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:property name="PI" value="3.141592653589793"/>
+  <xacro:macro name="sensor_camera"
+                  params="frame_prefix
+                        parent
+                        *origin
+                        node_name:=camera
+                        node_namespace:=${None}
+                        topic_prefix:=~/
+                        horizontal_fov:=80
+                        vertical_fov:=60
+                        video_width:=1280
+                        video_height:=720
+                        video_fps:=30">
+    <xacro:if value="${node_namespace == None}">
+    <xacro:property name="node_namespace" value="${node_name}"/>
+    </xacro:if>
+
+
+    <link name="${frame_prefix}_camera_base_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.025 0.025 0.025"/>
+        </geometry>
+        <material name="light_grey">
+          <color rgba="0.35 0.35 0.35 1.0"/>
+        </material>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.025 0.025 0.025"/>
+        </geometry>
+      </collision>
+
+      <inertial>
+        <mass value="0.135"/>
+        <origin xyz="0 0 0"/>
+        <inertia
+          ixx="${(0.135*(0.175*0.175+0.03*0.03))/12}" ixy="0" ixz="0"
+          iyy="${(0.135*(0.033*0.033+0.03*0.03))/12}" iyz="0"
+          izz="${(0.135*(0.033*0.033+0.175*0.175))/12}"/>
+      </inertial>
+    </link>
+    <joint name="${frame_prefix}_camera_base_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${frame_prefix}_camera_base_link"/>
+      <xacro:insert_block name="origin"/>
+    </joint>
+
+    <!-- ===================== -->
+    <!-- CAMERA FRAME          -->
+    <!-- ===================== -->
+
+    <link name="${frame_prefix}_camera_frame"/>
+
+    <joint name="${node_name}_camera_joint" type="fixed">
+      <parent link="${frame_prefix}_camera_base_link"/>
+      <child link="${frame_prefix}_camera_frame"/>
+      <origin xyz="0 -0.06 0" rpy="0 0 0"/>
+    </joint>
+
+    <!-- ===================== -->
+    <!-- OPTICAL FRAME (ROS)   -->
+    <!-- ===================== -->
+    <joint name="${node_name}_camera_optical_joint" type="fixed">
+      <parent link="${frame_prefix}_camera_frame"/>
+      <child link="${frame_prefix}_camera_optical_frame"/>
+      <origin xyz="0 0 0" rpy="${-PI/2} 0 ${-PI/2}"/>
+    </joint>
+    <link name="${frame_prefix}_camera_optical_frame"/>
+    <gazebo reference="${frame_prefix}_camera_frame">
+      <sensor name="${frame_prefix}_sensor" type="camera">
+        <visualize>true</visualize>
+        <update_rate>30</update_rate>
+        <topic>/${frame_prefix}/image</topic>
+        <camera>
+          <horizontal_fov>${radians(float(horizontal_fov))}</horizontal_fov>
+          <image>
+            <width>${video_width}</width>
+            <height>${video_height}</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.10</near>
+            <far>15.0</far>
+          </clip>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise>
+          <optical_frame_id>${frame_prefix}_camera_frame</optical_frame_id>
+        </camera>
+      </sensor>
+    </gazebo>
+    
+
+  </xacro:macro>
+</robot>
