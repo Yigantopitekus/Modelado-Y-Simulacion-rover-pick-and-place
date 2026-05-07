@@ -10,7 +10,7 @@ Durante la tarea se ejecuta una simulacion siguiendo el siguiente procedimiento:
 
 De esta ejecucion se realiza un rosbag conteniendo los topics /cmd_vel /imu/data y /joint_states, de los que se generarian graficas que representan la evolucion con el tiempo. Ademas, se pueden encontrar algunas ilustraciones del desarrollo del trabajo.
 ## Build
-``
+```
 mkdir -p ~/ros2_ws/src
 cd ~/ros2_ws/src
 git clone <repository_url>
