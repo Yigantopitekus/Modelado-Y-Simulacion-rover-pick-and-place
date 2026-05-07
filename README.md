@@ -10,7 +10,17 @@ Durante la tarea se ejecuta una simulacion siguiendo el siguiente procedimiento:
 
 De esta ejecucion se realiza un rosbag conteniendo los topics /cmd_vel /imu/data y /joint_states, de los que se generarian graficas que representan la evolucion con el tiempo. Ademas, se pueden encontrar algunas ilustraciones del desarrollo del trabajo.
 ## Build
-
+'''
+mkdir -p ~/ros2_ws/src
+cd ~/ros2_ws/src
+git clone <repository_url>
+cd ~/ros2_ws
+colcon build --symlink-install
+source install/setup.bash
+'''
+## launch
+Lanzar el robot en gazebo
+'''ros2 launch msr_robot robot_gazebo.launch.py world_name:=urjc_excavation_msr'''
 ## Plots
 <img width="1040" height="871" alt="image" src="https://github.com/user-attachments/assets/ca393577-8a8f-420e-95eb-8030f28e3005" />
 
